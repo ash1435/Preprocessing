@@ -1,6 +1,14 @@
-"""
-Code inspired by https://www.pyimagesearch.com/2017/05/22/face-alignment-with-opencv-and-python/#download-the-code
-"""
+import glob
+import os
+from pathlib import Path
+import subprocess
+from fractions import Fraction
+import dlib
+import numpy as np
+import re
+import argparse
+import cv2
+import shutil
 
 import numpy as np
 import cv2
@@ -167,18 +175,6 @@ class FaceAligner:
             return reference_output, compressed_output, landmarks, M
         return reference_output, landmarks, M
 
-import glob
-import os
-from pathlib import Path
-import subprocess
-from fractions import Fraction
-import dlib
-import numpy as np
-import re
-import argparse
-import cv2
-import shutil
-
 
 def compress_videos(path, crf):
     Path(f"{path}/compressed_{crf}").mkdir(parents=True, exist_ok=True)
@@ -241,7 +237,6 @@ def crop_and_align(base_path, crf):
     frames = [f"./data/compressed_42/failure_project/frames/{frame}" for frame in frames]
     for i, frame in enumerate(frames):
         frame_name = os.path.basename(frame)
-        print(f"{video_name}: {frame_name}")
 
         frame_compressed = cv2.imread(frame)
         frame_original = cv2.imread(f"./data/original/failure_project/frames/{frame_name}")
